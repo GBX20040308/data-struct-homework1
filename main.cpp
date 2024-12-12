@@ -915,12 +915,12 @@ typedef struct {
 //选出最小的两个节点
 void Select(HuffmanTree H,int k,int *s1,int *s2)
 {
-    int min1=H[1].weight;
-    int min2=H[1].weight;
+    int min1=100000000000;
+    int min2=100000000000;
 
     for (int i=1;i<=k;i++)
         {
-                if (H[i].parent!=0&&H[i].weight<min1)
+                if (H[i].parent==0&&H[i].weight<min1)
                 {
                     *s1=i;
                     min1=H[i].weight;
@@ -928,11 +928,11 @@ void Select(HuffmanTree H,int k,int *s1,int *s2)
                 }
 
         }
-    cout<<"执行到这里了"<<endl;
+
 
     for (int i=1;i<=k;i++)
     {
-        if (H[i].parent!=0&&H[i].weight<min2)
+        if (H[i].parent==0&&H[i].weight<min2)
         {
             *s2=i;
             min2=H[i].weight;
@@ -962,7 +962,8 @@ HuffmanTree CreateHuffmanTree(int n) {
         cout<<"请输入第"<<i<<"节点的权重"<<endl;
         cin>>H[i].weight;
     }
-    int s1,s2;
+    int s1=0;
+    int s2=0;
     //开始构建哈夫曼树
 
     for (int i=n+1;i<=m;i++) {
@@ -974,7 +975,7 @@ HuffmanTree CreateHuffmanTree(int n) {
         H[i].lchild=s1;
         H[i].rchild=s2;
     }
-    cout<<"执行到这里了11"<<endl;
+
     return H;
 }
 
@@ -982,13 +983,13 @@ HuffmanTree CreateHuffmanTree(int n) {
 void HuffmanTreePreOrderShow1(HuffmanTree T,int k);
 
 //哈夫曼数的前序遍历输出
-void HuffmanTreePreOrderShow(HuffmanTree H)
+void HuffmanTreePreOrderShow(HuffmanTree H,int n)
 {
     HuffmanTree T=H;
     int k=1;//根节点的序号
-    int n=1;//树的节点个数
-    cout<<"执行到这里了"<<endl;
-    n=sizeof(*H)/sizeof(HuffmanNode);
+
+
+    n=2*n-1;
 
     cout<<"哈夫曼树的节点个数是"<<n<<endl;
 
@@ -1013,12 +1014,13 @@ void HuffmanTreePreOrderShow(HuffmanTree H)
 
 void HuffmanTreePreOrderShow1(HuffmanTree T,int k)
 {
-    while (1)
-        {
-        cout<<T[k].weight;
-        HuffmanTreePreOrderShow1(T,T[k].lchild);
-        HuffmanTreePreOrderShow1(T,T[k].rchild);
+    if (k==0) {
+        return;
     }
+    cout<<T[k].weight<<" ";
+    HuffmanTreePreOrderShow1(T,T[k].lchild);
+    HuffmanTreePreOrderShow1(T,T[k].rchild);
+
 }
 
 
@@ -1028,7 +1030,7 @@ int main() {
     cout << "请输入节点的数量: ";
     cin >> n;
    HuffmanTree H=CreateHuffmanTree(n);
-  HuffmanTreePreOrderShow(H);
+  HuffmanTreePreOrderShow(H,n);
     delete[] H;
     return 0;
 }
