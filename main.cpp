@@ -1,19 +1,19 @@
 #include <iostream>
 
 using namespace std;
-#define Elemtype int
+#define Elemtype char
 #define MAXSIZE 200
 
-//-------------------------------------------Ë³Ğò±í----------------------------------------------------------------------
+//-------------------------------------------é¡ºåºè¡¨----------------------------------------------------------------------
 
-// Ë³Ğò±í
+// é¡ºåºè¡¨
 typedef struct {
     Elemtype* data;
     int length;
 } SSQList,*SQList;
 
 
-// Ë³Ğò±í L µÄ³õÊ¼»¯
+// é¡ºåºè¡¨ L çš„åˆå§‹åŒ–
 SQList InitSQLList()
 {   SQList L=new SSQList;
     L->data = new Elemtype[MAXSIZE];
@@ -25,22 +25,22 @@ SQList InitSQLList()
     return L;
 }
 
-// Ë³Ğò±íµÄÏú»Ù
+// é¡ºåºè¡¨çš„é”€æ¯
 void DestroySQList(SQList L) {
     delete[] L->data;
 }
 
-// Ë³Ğò±íµÄÇå¿Õ
+// é¡ºåºè¡¨çš„æ¸…ç©º
 void ClearSQList(SQList L) {
     L->length = 0;
 }
 
-// ÇóË³Ğò±íµÄ³¤¶È
+// æ±‚é¡ºåºè¡¨çš„é•¿åº¦
 int GetLengthSQList(SQList L) {
     return L->length;
 }
 
-// ÅĞ¶ÏË³Ğò±íÊÇ·ñÎª¿Õ
+// åˆ¤æ–­é¡ºåºè¡¨æ˜¯å¦ä¸ºç©º
 bool IsEmptySQList(SQList L) {
     if (L->length) {
         return false;
@@ -50,17 +50,17 @@ bool IsEmptySQList(SQList L) {
     }
 }
 
-// Ë³Ğò±íÖµµÄ»ñÈ¡
+// é¡ºåºè¡¨å€¼çš„è·å–
 Elemtype GetElemSQList(SQList L, int i) {
     if (i < 1 || i > L->length) {
-        cout << "ÄãÔ½½çÁË" << endl;
+        cout << "ä½ è¶Šç•Œäº†" << endl;
         return 0;
     }
 
     return L->data[i - 1];
 }
 
-// Ë³Ğò±íµÄ¸øÖµ²éÕÒ
+// é¡ºåºè¡¨çš„ç»™å€¼æŸ¥æ‰¾
 int LocateElem(SQList L, Elemtype e) {
     for (int i = 0; i < L->length; i++) {
         if (L->data[i] == e) {
@@ -68,17 +68,17 @@ int LocateElem(SQList L, Elemtype e) {
         }
     }
 
-    cout << "ÕÒ²»µ½¶ÔÏó" << endl;
+    cout << "æ‰¾ä¸åˆ°å¯¹è±¡" << endl;
 }
 
-// Ë³Ğò±íµÄ²åÈë
+// é¡ºåºè¡¨çš„æ’å…¥
 void InsertSQList(SQList L, int i, Elemtype e) {
     if (i < 1 || i > L->length + 1) {
-        cout << "ÄãÔ½½çÁË" << endl;
+        cout << "ä½ è¶Šç•Œäº†" << endl;
         exit;
     }
     if (L->length == MAXSIZE) {
-        cout << "´æ²»ÏÂÁË" << endl;
+        cout << "å­˜ä¸ä¸‹äº†" << endl;
         exit;
     }
 
@@ -89,13 +89,13 @@ void InsertSQList(SQList L, int i, Elemtype e) {
     L->length++;
 }
 
-// Ë³Ğò±íµÄÄ©Î²²åÈë
+// é¡ºåºè¡¨çš„æœ«å°¾æ’å…¥
 void PushSQList(SQList L, Elemtype e) {
     InsertSQList(L, L->length + 1, e);
 }
 
 
-//Ë³Ğò±íµÄ±éÀú
+//é¡ºåºè¡¨çš„éå†
 void ShowSQList(SQList L) {
     for (int i = 0; i < L->length; i++) {
         cout << L->data[i] << " ";
@@ -104,13 +104,13 @@ void ShowSQList(SQList L) {
 }
 
 
-//Ë³Ğò±íµÄÉ¾³ı
+//é¡ºåºè¡¨çš„åˆ é™¤
 void DeleteElemSQList(SQList L,int i)
 {
     i--;
     if(i<1||i> GetLengthSQList(L))
     {
-        cout<<"Ë³Ğò±íÉ¾³ıÔªËØ£ºÔ½½ç"<<endl;
+        cout<<"é¡ºåºè¡¨åˆ é™¤å…ƒç´ ï¼šè¶Šç•Œ"<<endl;
     }
 
     for(int j=i;j<= GetLengthSQList(L);j++)
@@ -120,9 +120,9 @@ void DeleteElemSQList(SQList L,int i)
     L->length--;
 }
 
-//------------------------------------µ¥Á´±í(´ø±íÍ·£©----------------------------------------------------------------------
+//------------------------------------å•é“¾è¡¨(å¸¦è¡¨å¤´ï¼‰----------------------------------------------------------------------
 
-//Á´±í
+//é“¾è¡¨
 typedef struct LNode{
     Elemtype data;
     LNode *next;
@@ -131,7 +131,7 @@ typedef struct LNode{
 
 
 
-//Á´±íµÄ³õÊ¼»¯
+//é“¾è¡¨çš„åˆå§‹åŒ–
 NodeList InitList()
 {
     NodeList L;
@@ -141,7 +141,7 @@ NodeList InitList()
 
 }
 
-//Á´±íµÄÅĞ¿Õ
+//é“¾è¡¨çš„åˆ¤ç©º
 bool IsEmptyList(NodeList L)
 {
     if(L->next== nullptr)
@@ -156,7 +156,7 @@ bool IsEmptyList(NodeList L)
 
 }
 
-//Á´±íµÄÏú»Ù
+//é“¾è¡¨çš„é”€æ¯
 int DestroyList(NodeList L)
 {
     NodeList p;
@@ -164,12 +164,12 @@ int DestroyList(NodeList L)
     {
         p=L;
         L=L->next;
-        delete p;//Ò»¸öÒ»¸öÍùºóÉ¾Íê
+        delete p;//ä¸€ä¸ªä¸€ä¸ªå¾€ååˆ å®Œ
     }
     return 1;
 }
 
-//Á´±íµÄÇå¿Õ
+//é“¾è¡¨çš„æ¸…ç©º
 int ClearList(NodeList L)
 {
     NodeList p;
@@ -184,7 +184,7 @@ int ClearList(NodeList L)
     L->next= nullptr;
 }
 
-//Çóµ¥Á´±íµÄ±í³¤
+//æ±‚å•é“¾è¡¨çš„è¡¨é•¿
 int GetLengthList(NodeList L)
 {
     int sum=0;
@@ -198,12 +198,12 @@ int GetLengthList(NodeList L)
     return sum;
 }
 
-//»ñÈ¡µÚi¸öÔªËØ
+//è·å–ç¬¬iä¸ªå…ƒç´ 
 Elemtype GetElemList(NodeList L,int i)
 {
     if(i<1||i>GetLengthList(L))
     {
-        cout<<"»ñÈ¡ÔªËØ£ºÔ½½ç"<<endl;
+        cout<<"è·å–å…ƒç´ ï¼šè¶Šç•Œ"<<endl;
     }
     NodeList p;
     p=L;
@@ -214,7 +214,7 @@ Elemtype GetElemList(NodeList L,int i)
     return p->data;
 }
 
-//µ¥Á´±íµÄ¸øÖµ²éÕÒ
+//å•é“¾è¡¨çš„ç»™å€¼æŸ¥æ‰¾
 int LocateElemList(NodeList L,Elemtype e)
 {
     NodeList p;
@@ -230,16 +230,16 @@ int LocateElemList(NodeList L,Elemtype e)
         }
         p=p->next;
     }
-    cout<<"¸øÖµ²éÕÒ:ÕÒ²»µ½¶ÔÏó"<<endl;
+    cout<<"ç»™å€¼æŸ¥æ‰¾:æ‰¾ä¸åˆ°å¯¹è±¡"<<endl;
 }
 
 
-//ÏòµÚi¸ö½áµã²åÈëeÖµ
+//å‘ç¬¬iä¸ªç»“ç‚¹æ’å…¥eå€¼
 int InsertList(NodeList L,int i,Elemtype e)
 {
     if(i<1||i>GetLengthList(L))
     {
-        cout<<"²åÈë£ºÔ½½ç"<<endl;
+        cout<<"æ’å…¥ï¼šè¶Šç•Œ"<<endl;
     }
     NodeList p;
     NodeList k;
@@ -248,8 +248,8 @@ int InsertList(NodeList L,int i,Elemtype e)
     {
         p=p->next;
     }
-    //Ñ­»·½áÊøºó£¬pÊÇiµÄÇ°Ò»¸öÔªËØ
-    k=p->next;//kÊÇµÚi¸öÔªËØ
+    //å¾ªç¯ç»“æŸåï¼Œpæ˜¯içš„å‰ä¸€ä¸ªå…ƒç´ 
+    k=p->next;//kæ˜¯ç¬¬iä¸ªå…ƒç´ 
     NodeList q=new LNode;
     q->data=e;
     p->next=q;
@@ -258,12 +258,12 @@ int InsertList(NodeList L,int i,Elemtype e)
 
 }
 
-//É¾³ıµ¥Á´±íÖĞµÄµÚi¸öÔªËØ
+//åˆ é™¤å•é“¾è¡¨ä¸­çš„ç¬¬iä¸ªå…ƒç´ 
 int DeleteElemList(NodeList L,int i)
 {
     if(i<1||i>GetLengthList(L))
     {
-        cout<<"É¾³ıÔªËØ£ºÔ½½ç"<<endl;
+        cout<<"åˆ é™¤å…ƒç´ ï¼šè¶Šç•Œ"<<endl;
     }
     NodeList p;
     p=L;
@@ -277,7 +277,7 @@ int DeleteElemList(NodeList L,int i)
     return 1;
 }
 
-//±éÀúÁ´±í
+//éå†é“¾è¡¨
 void ShowList(NodeList L)
 {
     NodeList p=L->next;
@@ -289,7 +289,7 @@ void ShowList(NodeList L)
 }
 
 
-//Ä©Î²²åÈë
+//æœ«å°¾æ’å…¥
 void PushList(NodeList L,Elemtype e)
 {
     NodeList p=L;
@@ -306,20 +306,20 @@ void PushList(NodeList L,Elemtype e)
 }
 
 
-//----------------------------------------------Õ»£¨Á´Ê½£©----------------------------------------------------------------
-//Õ»µÄÖØ¶¨Òå
+//----------------------------------------------æ ˆï¼ˆé“¾å¼ï¼‰----------------------------------------------------------------
+//æ ˆçš„é‡å®šä¹‰
 NodeList InitStack()
 {
     return InitList();
 }
 
-//ÈëÕ»
+//å…¥æ ˆ
 void PushStack(NodeList L,Elemtype e)
 {
     PushList(L,e);
 }
 
-//³öÕ»
+//å‡ºæ ˆ
 Elemtype PopStack(NodeList L)
 {
     Elemtype q=GetElemList(L, GetLengthList(L));
@@ -328,19 +328,19 @@ Elemtype PopStack(NodeList L)
 
 }
 
-//Ö»¶ÁÈ¡²»³öÕ»
+//åªè¯»å–ä¸å‡ºæ ˆ
 Elemtype peekStack(NodeList L)
 {
     return GetElemList(L, GetLengthList(L));
 }
 
-//ÅĞ¿Õ
+//åˆ¤ç©º
 bool IsEmptyStack(NodeList L)
 {
     return IsEmptyList(L);
 }
 
-//±éÀúÕ»
+//éå†æ ˆ
 void ShowStack(NodeList L)
 {
     ShowList(L);
@@ -348,7 +348,7 @@ void ShowStack(NodeList L)
 
 
 
-//²âÊÔÕ»£ºÊ®½øÖÆ×ª¶ş½øÖÆ
+//æµ‹è¯•æ ˆï¼šåè¿›åˆ¶è½¬äºŒè¿›åˆ¶
 string DECtoBIN(int dec)
 {
     NodeList L=InitStack();
@@ -382,7 +382,40 @@ string DECtoBIN(int dec)
 }
 
 
-//-------------------------------------------------------´®------------------------------------------------------------
+//--------------------------------------------é˜Ÿåˆ—ï¼ˆé“¾å¼ï¼‰-----------------------------------------------------------------
+//é˜Ÿåˆ—çš„é‡å®šä¹‰
+NodeList InitQuene()
+{
+    return InitList();
+}
+
+//å…¥é˜Ÿåˆ—
+void PushQuene(NodeList L,Elemtype e)
+{
+    PushList(L,e);
+}
+
+//å‡ºé˜Ÿåˆ—
+Elemtype PopQuene(NodeList L)
+{
+    Elemtype q=GetElemList(L, 1);
+    DeleteElemList(L, 1);
+    return  q;
+}
+
+//éå†é˜Ÿåˆ—
+void ShowQuene(NodeList L)
+{
+    ShowList(L);
+}
+
+
+//é˜Ÿåˆ—çš„åˆ¤ç©º
+bool IsEmptyQuene(NodeList L)
+{
+    return IsEmptyList(L);
+}
+//-------------------------------------------------------ä¸²------------------------------------------------------------
 typedef struct
 {
     char *data;
@@ -391,7 +424,7 @@ typedef struct
 
 
 
-//´®µÄ³õÊ¼»¯
+//ä¸²çš„åˆå§‹åŒ–
 SSString InitString()
 {
     SSString S=new SString ;
@@ -401,16 +434,16 @@ SSString InitString()
 
 }
 
-//´®µÄ²åÈë
+//ä¸²çš„æ’å…¥
 void AssignString(SSString S,char *data){
     if(S->data)
         free(S->data);
     int len = 0;
     char* temp = data;
 
-    while (*temp){    //*tempÓÃÀ´·ÃÎÊtempÖ¸ÕëËùÖ¸µÄÖµ
+    while (*temp){    //*tempç”¨æ¥è®¿é—®tempæŒ‡é’ˆæ‰€æŒ‡çš„å€¼
         len ++ ;
-        temp++;       //Ö¸ÏòÔ­À´Î»ÖÃºóµÄÒ»¸ö×Ö·û
+        temp++;       //æŒ‡å‘åŸæ¥ä½ç½®åçš„ä¸€ä¸ªå­—ç¬¦
     }
 
     if(len == 0){
@@ -420,7 +453,7 @@ void AssignString(SSString S,char *data){
     else{
         temp = data;
         S->len = len;
-        S->data = (char*)malloc(sizeof(char)*(len+1));  //×Ö·û´®³¤¶È¼ÓÒ»Î»ÓÃÓÚ±êÊ¶½áÊø
+        S->data = (char*)malloc(sizeof(char)*(len+1));  //å­—ç¬¦ä¸²é•¿åº¦åŠ ä¸€ä½ç”¨äºæ ‡è¯†ç»“æŸ
         for(int i= 0; i<len+1; i++,temp++){
             S->data[i] = *temp;
         }
@@ -430,13 +463,13 @@ void AssignString(SSString S,char *data){
 void AssignElemString(SSString S,char e)
 {
     int len = S->len;
-    S->data = (char*)malloc(sizeof(char)*(len+1));  //×Ö·û´®³¤¶È¼ÓÒ»Î»ÓÃÓÚ±êÊ¶½áÊø
+    S->data = (char*)malloc(sizeof(char)*(len+1));  //å­—ç¬¦ä¸²é•¿åº¦åŠ ä¸€ä½ç”¨äºæ ‡è¯†ç»“æŸ
     S->data[len]=e;
     S->len++;
 }
 
 
-//´®µÄ±éÀúÊä³ö
+//ä¸²çš„éå†è¾“å‡º
 void ShowString(SSString S)
 {
     int len1=S->len;
@@ -448,7 +481,7 @@ void ShowString(SSString S)
 }
 
 
-//´®µÄÁ´½Ó
+//ä¸²çš„é“¾æ¥
 int ConcatString(SSString s1, SSString s2, SSString s) {
     if (s1 == NULL || s1->data == NULL || s2 == NULL || s2->data == NULL) {
         fprintf(stderr, "Invalid input strings.\n");
@@ -476,14 +509,14 @@ int ConcatString(SSString s1, SSString s2, SSString s) {
 }
 
 
-//´®µÄ³¤¶È
+//ä¸²çš„é•¿åº¦
 int GetLengthString(SSString s)
 {
     return s->len;
 }
 
 
-//´®µÄ½ØÈ¡
+//ä¸²çš„æˆªå–
 SSString SubString(SSString s, int i, int len) {
     if (s == NULL || i < 1 || i > s->len|| len < 0 || i + len - 1 > s->len) {
         return nullptr;
@@ -500,7 +533,7 @@ SSString SubString(SSString s, int i, int len) {
     return s2;
 }
 
-//´®µÄ±È½Ï
+//ä¸²çš„æ¯”è¾ƒ
 int CmpString(SSString s1,SSString s2)
 {
     int sum1=0;
@@ -529,7 +562,7 @@ int CmpString(SSString s1,SSString s2)
 
 }
 
-//Ä£Ê½Æ¥Åä
+//æ¨¡å¼åŒ¹é…
 int IndexString(SSString s, SSString t) {
     int sLen = s->len;
     int tLen = t->len;
@@ -547,25 +580,25 @@ int IndexString(SSString s, SSString t) {
     return -1;
 }
 
-//´®µÄ²åÈë
+//ä¸²çš„æ’å…¥
 void InsertString(SSString s, int i, SSString t) {
     if (i < 1 || i > s->len + 1) {
-        // ²åÈëÎ»ÖÃ²»ºÏ·¨
+        // æ’å…¥ä½ç½®ä¸åˆæ³•
         return;
     }
     int sLen = s->len;
     int tLen = t->len;
     int newLen = sLen + tLen;
     char* newData = new char[newLen + 1];
-    // ½« s ÖĞÇ° i - 1 ¸ö×Ö·û¸´ÖÆµ½ newData
+    // å°† s ä¸­å‰ i - 1 ä¸ªå­—ç¬¦å¤åˆ¶åˆ° newData
     for (int j = 0; j < i - 1; j++) {
         newData[j] = s->data[j];
     }
-    // ½« t µÄ×Ö·û¸´ÖÆµ½ newData
+    // å°† t çš„å­—ç¬¦å¤åˆ¶åˆ° newData
     for (int j = 0; j < tLen; j++) {
         newData[j + i - 1] = t->data[j];
     }
-    // ½« s ÖĞÊ£Óà×Ö·û¸´ÖÆµ½ newData
+    // å°† s ä¸­å‰©ä½™å­—ç¬¦å¤åˆ¶åˆ° newData
     for (int j = i - 1; j < sLen; j++) {
         newData[j + tLen] = s->data[j];
     }
@@ -576,20 +609,20 @@ void InsertString(SSString s, int i, SSString t) {
 }
 
 
-//´®µÄÉ¾³ı
+//ä¸²çš„åˆ é™¤
 void DeleteString(SSString s, int i, int len) {
     if (i < 1 || i > s->len || len < 0 || len > s->len - i + 1) {
-        // ²ÎÊı²»ºÏ·¨
+        // å‚æ•°ä¸åˆæ³•
         return;
     }
     int sLen = s->len;
     int newLen = sLen - len;
     char* newData = new char[newLen + 1];
-    // ¸´ÖÆ s ÖĞÇ° i - 1 ¸ö×Ö·û
+    // å¤åˆ¶ s ä¸­å‰ i - 1 ä¸ªå­—ç¬¦
     for (int j = 0; j < i - 1; j++) {
         newData[j] = s->data[j];
     }
-    // ¸´ÖÆ s ÖĞ´Ó i + len Î»ÖÃ¿ªÊ¼µÄ×Ö·û
+    // å¤åˆ¶ s ä¸­ä» i + len ä½ç½®å¼€å§‹çš„å­—ç¬¦
     for (int j = i - 1 + len; j < sLen; j++) {
         newData[j - len] = s->data[j];
     }
@@ -602,7 +635,7 @@ void DeleteString(SSString s, int i, int len) {
 
 
 
-//´®µÄÌæ»»
+//ä¸²çš„æ›¿æ¢
 void ReplaceString(SSString s, SSString t, SSString r) {
     if (t->len == 0) return;
     int sLen = s->len;
@@ -635,7 +668,7 @@ void ReplaceString(SSString s, SSString t, SSString r) {
     s->data = newData;
     s->len = newIndex;
 }
-//Í³¼Æ×Ó´®ÊıÄ¿
+//ç»Ÿè®¡å­ä¸²æ•°ç›®
 int CountSubString(SSString S,SSString T)
 {
     int sum=0;
@@ -655,7 +688,7 @@ char GetElemString(SSString S,int i)
 {
     return S->data[i-1];
 }
-//×Ö·û´®µ¹ĞòÊä³ö
+//å­—ç¬¦ä¸²å€’åºè¾“å‡º
 SSString ReversePrintString(SSString S)
 {
     char str[10000];
@@ -671,7 +704,7 @@ SSString ReversePrintString(SSString S)
 }
 
 
-//×Ö·û´®°´Î»±È½Ï
+//å­—ç¬¦ä¸²æŒ‰ä½æ¯”è¾ƒ
 bool CompareStringBitwise(SSString S,SSString T)
 {
     bool sw=true;
@@ -694,57 +727,308 @@ bool CompareStringBitwise(SSString S,SSString T)
     return sw;
 
 }
-/*int main()
+
+//--------------------------------------------------äºŒå‰æ ‘---------------------------------------------------------------
+// å®šä¹‰äºŒå‰æ ‘èŠ‚ç‚¹ç»“æ„ä½“
+typedef struct BiNode {
+    char data;
+    struct BiNode *lchild, *rchild;
+} BiNode, *BiTree;
+
+// äºŒå‰æ ‘çš„åˆå§‹åŒ–
+BiTree InitBiTree() {
+    BiTree T = new BiNode;
+    T->lchild = nullptr;
+    T->rchild = nullptr;
+    return T;
+}
+
+// é”€æ¯äºŒå‰æ ‘ï¼Œç”¨äºé‡Šæ”¾å†…å­˜
+void DestroyBiTree(BiTree &T) {
+    if (T == nullptr) {
+        return;
+    }
+    DestroyBiTree(T->lchild);
+    DestroyBiTree(T->rchild);
+    delete T;
+    T = nullptr;
+}
+
+// äºŒå‰æ ‘çš„åˆ›å»º
+int CreateBiTree(BiTree &T) {
+    Elemtype ch;
+    cin >> ch;
+    if (ch == '#') {
+        T = nullptr;
+    }
+    else {
+        T = new BiNode;
+        if (T == nullptr)
+            {
+            return -1;
+        }
+        T->data = ch;
+        CreateBiTree(T->lchild);
+        CreateBiTree(T->rchild);
+
+    }
+    return 0;
+}
+
+// äºŒå‰æ ‘å‰åºéå†
+void PreOrderShow(BiTree T) {
+    if (T == nullptr) {
+        return;
+    }
+    cout << T->data << " ";
+    PreOrderShow(T->lchild);
+    PreOrderShow(T->rchild);
+}
+
+// äºŒå‰æ ‘ä¸­åºéå†
+void InOrderShow(BiTree T) {
+    if (T == nullptr) {
+        return;
+    }
+    InOrderShow(T->lchild);
+    cout << T->data << " ";
+    InOrderShow(T->rchild);
+}
+
+// äºŒå‰æ ‘ååºéå†
+void PostOrderShow(BiTree T) {
+    if (T == nullptr) {
+        return;
+    }
+    PostOrderShow(T->lchild);
+    PostOrderShow(T->rchild);
+    cout << T->data << " ";
+}
+
+
+
+// äºŒå‰æ ‘ä¸“ç”¨é˜Ÿåˆ—
+typedef struct QNode {
+    BiTree data;
+    QNode *next;
+} QNode, *NodeQuene;
+
+NodeQuene InitQueneForBiTree() {
+    NodeQuene q = new QNode;
+    q->next = nullptr;
+    return q;
+}
+
+// å…¥é˜Ÿåˆ—
+void PushQueneForBiTree(NodeQuene L, BiTree e) {
+    NodeQuene p = L;
+    while (p->next) {
+        p = p->next;
+    }
+    NodeQuene q = new QNode;
+    q->data = e;
+    q->next = nullptr;
+    p->next = q;
+}
+
+// å‡ºé˜Ÿåˆ—
+BiTree PopQueneForBiTree(NodeQuene L) {
+    if (L->next == nullptr) {
+        return nullptr;
+    }
+    BiTree q = L->next->data;
+    NodeQuene p = L->next;
+    L->next = p->next;
+    delete p;
+    return q;
+}
+
+// é˜Ÿåˆ—çš„åˆ¤ç©º
+bool IsEmptyQueneForBiTree(NodeQuene L) {
+    return L->next == nullptr;
+}
+
+// é”€æ¯é˜Ÿåˆ—
+int DestroyQueneForBiTree(NodeQuene L) {
+    while (!IsEmptyQueneForBiTree(L)) {
+        PopQueneForBiTree(L);
+    }
+    delete L;
+    return 0;
+}
+
+// äºŒå‰æ ‘çš„å±‚åºéå†
+void LevelOrderShow(BiTree T)
 {
-    cout<<"-------------------------------------Ë³Ğò±í------------------------------------------------------------------"<<endl;
-    SQList L= InitSQLList();
-    PushSQList(L,1);
-    PushSQList(L,2);
-    PushSQList(L,3);
-    ShowSQList(L);
-    cout<<"Ë³Ğò±íµÄ¸öÊıÎª"<<GetLengthSQList(L)<<endl;
-    cout<<"Ë³Ğò±íÖµµÄµÚ¶ş¸öÖµÎª"<<GetElemSQList(L,2)<<endl;
-    InsertSQList(L,2,5);
-    cout<<"ÏòµÚ¶şÎ»²åÈë5"<<endl;
-    ShowSQList(L);
-    cout<<"É¾³ıµÚ¶şÎ»ÔªËØ"<<endl;
-    DeleteElemSQList(L,2);
-    ShowSQList(L);
+    //æ ‘çš„åˆ¤ç©º
+    if (T == nullptr) {
+        return;
+    }
+    //åˆ›å»ºä¸€ä¸ªé˜Ÿåˆ—;
+    NodeQuene qu = InitQueneForBiTree();
+    BiTree p;
 
-    cout<<"---------------------------------------µ¥Á´±í----------------------------------------------------------------"<<endl;
-    NodeList K=InitList();
-    PushList(K,1);
-    PushList(K,2);
-    PushList(K,3);
-    ShowList(K);
-    cout<<endl;
-    cout<<"Ë³Ğò±íµÄ¸öÊıÎª"<<GetLengthList(K)<<endl;
-    cout<<"Ë³Ğò±íÖµµÄµÚ¶ş¸öÖµÎª"<<GetElemList(K,2)<<endl;
-    InsertList(K,2,5);
-    cout<<"ÏòµÚ¶şÎ»²åÈë5"<<endl;
-    ShowList(K);
-    cout<<endl;
-    cout<<"É¾³ıµÚ¶şÎ»ÔªËØ"<<endl;
-    DeleteElemList(K,2);
-    ShowList(K);
-    cout<<endl;
+    // æ ¹èŠ‚ç‚¹å…¥é˜Ÿåˆ—
+    PushQueneForBiTree(qu, T);
 
-    cout<<"-----------------------------------------Õ»-----------------------------------------------------------------"<<endl;
-    int dec=0;
-    cout<<"ÇëÊäÈëÊ®½øÖÆÊı"<<endl;
-    cin>>dec;
-    cout<<DECtoBIN(dec)<<endl;
+    // å¾ªç¯å‡ºé˜Ÿåˆ—ç›´åˆ°é˜Ÿåˆ—ä¸ºç©º
+    while (!IsEmptyQueneForBiTree(qu)) {
+        // å‡ºé˜Ÿåˆ—ä¸€ä¸ªèŠ‚ç‚¹å¹¶æ‰“å°å…¶æ•°æ®
+        p = PopQueneForBiTree(qu);
+        cout << p->data << " ";
 
+        // å¦‚æœå½“å‰èŠ‚ç‚¹æœ‰å·¦å­èŠ‚ç‚¹ï¼Œå°†å·¦å­èŠ‚ç‚¹å…¥é˜Ÿåˆ—
+        if (p->lchild != nullptr) {
+            PushQueneForBiTree(qu, p->lchild);
+        }
 
+        // å¦‚æœå½“å‰èŠ‚ç‚¹æœ‰å³å­èŠ‚ç‚¹ï¼Œå°†å³å­èŠ‚ç‚¹å…¥é˜Ÿåˆ—
+        if (p->rchild != nullptr) {
+            PushQueneForBiTree(qu, p->rchild);
+        }
+    }
 
-}*/
+    // é‡Šæ”¾é˜Ÿåˆ—èµ„æº
+    DestroyQueneForBiTree(qu);
+}
 
-int main()
+//äºŒå‰æ ‘çš„å¤åˆ¶ï¼ˆå…ˆåºï¼‰
+int CopyBiTree(BiTree T, BiTree &S) {
+    if (T==nullptr) {
+        S==nullptr;
+        return 0;
+    }
+    else {
+        S=new BiNode;
+        S->data=T->data;
+        CopyBiTree(T->lchild,S->lchild);
+        CopyBiTree(T->rchild,S->rchild);
+    }
+}
+
+//---------------------------------------------------å“ˆå¤«æ›¼æ ‘------------------------------------------------------------
+//å®šä¹‰å“ˆå¤«æ›¼æ ‘ç»“æ„ä½“ï¼ˆé¡ºåºç»“æ„ï¼‰
+typedef struct {
+    int weight=0;
+    int parent,lchild,rchild;
+}HuffmanNode,*HuffmanTree;
+//é€‰å‡ºæœ€å°çš„ä¸¤ä¸ªèŠ‚ç‚¹
+void Select(HuffmanTree H,int k,int *s1,int *s2)
 {
-    SSString S=InitString();
-    SSString T=InitString();
-    char str1[10000];
-    cin>>str1;
-    AssignString(S,str1);
-  
+    int min1=H[1].weight;
+    int min2=H[1].weight;
+
+    for (int i=1;i<=k;i++)
+        {
+                if (H[i].parent!=0&&H[i].weight<min1)
+                {
+                    *s1=i;
+                    min1=H[i].weight;
+                    H[i].parent=1;
+                }
+
+        }
+    cout<<"æ‰§è¡Œåˆ°è¿™é‡Œäº†"<<endl;
+
+    for (int i=1;i<=k;i++)
+    {
+        if (H[i].parent!=0&&H[i].weight<min2)
+        {
+            *s2=i;
+            min2=H[i].weight;
+            H[i].parent=1;
+        }
+
+    }
+}
+
+
+//å“ˆå¤«æ›¼æ ‘çš„åˆ›å»º
+HuffmanTree CreateHuffmanTree(int n) {
+    if (n<=1) {
+        return 0;
+    }
+    HuffmanTree H;
+    int m=2*n-1;//æœ€ç»ˆçš„èŠ‚ç‚¹ä¸ªæ•°
+    H=new HuffmanNode[m+1];//å¼€è¾Ÿç©ºé—´ï¼Œåˆ›é€ æ•°ç»„ï¼Œä¸ç”¨ç¬¬é›¶ä¸ª
+    for (int i=1;i<=m;i++)//åˆå§‹åŒ–ï¼Œç½®é›¶
+    {
+        H[i].parent=0;
+        H[i].lchild=0;
+        H[i].rchild=0;
+    }
+    for (int i=1;i<=n;i++)//è¯»å…¥å‰nä¸ªå€¼çš„æƒé‡
+    {
+        cout<<"è¯·è¾“å…¥ç¬¬"<<i<<"èŠ‚ç‚¹çš„æƒé‡"<<endl;
+        cin>>H[i].weight;
+    }
+    int s1,s2;
+    //å¼€å§‹æ„å»ºå“ˆå¤«æ›¼æ ‘
+
+    for (int i=n+1;i<=m;i++) {
+
+        Select(H,i-1,&s1,&s2);//é€‰å‡ºä¸¤ä¸ªæœ€å°çš„èŠ‚ç‚¹
+        H[s1].parent=i;
+        H[s2].parent=i;
+        H[i].weight=H[s1].weight+H[s2].weight;
+        H[i].lchild=s1;
+        H[i].rchild=s2;
+    }
+    cout<<"æ‰§è¡Œåˆ°è¿™é‡Œäº†11"<<endl;
+    return H;
+}
+
+
+void HuffmanTreePreOrderShow1(HuffmanTree T,int k);
+
+//å“ˆå¤«æ›¼æ•°çš„å‰åºéå†è¾“å‡º
+void HuffmanTreePreOrderShow(HuffmanTree H)
+{
+    HuffmanTree T=H;
+    int k=1;//æ ¹èŠ‚ç‚¹çš„åºå·
+    int n=1;//æ ‘çš„èŠ‚ç‚¹ä¸ªæ•°
+    cout<<"æ‰§è¡Œåˆ°è¿™é‡Œäº†"<<endl;
+    n=sizeof(*H)/sizeof(HuffmanNode);
+
+    cout<<"å“ˆå¤«æ›¼æ ‘çš„èŠ‚ç‚¹ä¸ªæ•°æ˜¯"<<n<<endl;
+
+    //ä¸‹é¢å¼€å§‹æ‰¾æ ¹èŠ‚ç‚¹
+    for (int i=1;i<=n;i++) {
+        if (T[i].parent==0) {
+                cout<<"æ ¹èŠ‚ç‚¹æ˜¯"<<i<<endl;
+            k=i;
+            break;
+        }
+
+    }
+
+    //ä¸‹é¢å¼€å§‹å‰åºéå†
+   HuffmanTreePreOrderShow1(T,k);
+
+
+
+
+}
+
+
+void HuffmanTreePreOrderShow1(HuffmanTree T,int k)
+{
+    while (1)
+        {
+        cout<<T[k].weight;
+        HuffmanTreePreOrderShow1(T,T[k].lchild);
+        HuffmanTreePreOrderShow1(T,T[k].rchild);
+    }
+}
+
+
+
+int main() {
+    int n;
+    cout << "è¯·è¾“å…¥èŠ‚ç‚¹çš„æ•°é‡: ";
+    cin >> n;
+   HuffmanTree H=CreateHuffmanTree(n);
+  HuffmanTreePreOrderShow(H);
+    delete[] H;
+    return 0;
 }
