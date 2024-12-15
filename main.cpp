@@ -913,35 +913,31 @@ typedef struct {
     int parent,lchild,rchild;
 }HuffmanNode,*HuffmanTree;
 //选出最小的两个节点
-void Select(HuffmanTree H,int k,int *s1,int *s2)
+//选出最小的两个节点
+void Select(HuffmanTree H, int k, int *s1, int *s2)
 {
-    int min1=100000000000;
-    int min2=100000000000;
-
-    for (int i=1;i<=k;i++)
-        {
-                if (H[i].parent==0&&H[i].weight<min1)
-                {
-                    *s1=i;
-                    min1=H[i].weight;
-                    H[i].parent=1;
-                }
-
-        }
-
-
-    for (int i=1;i<=k;i++)
+    int min1 = 100000000000;
+    int min2 = 100000000000;
+    // 先遍历找到第一个最小权值的节点
+    for (int i = 1; i <= k; i++)
     {
-        if (H[i].parent==0&&H[i].weight<min2)
+        if (H[i].parent == 0 && H[i].weight < min1)
         {
-            *s2=i;
-            min2=H[i].weight;
-            H[i].parent=1;
+            min1 = H[i].weight;
+            *s1 = i;
         }
+    }
 
+    // 再遍历找到除第一个最小权值节点外的第二小权值节点
+    for (int i = 1; i <= k; i++)
+    {
+        if (H[i].parent == 0 && H[i].weight < min2 && i!= *s1)
+        {
+            min2 = H[i].weight;
+            *s2 = i;
+        }
     }
 }
-
 
 //哈夫曼树的创建
 HuffmanTree CreateHuffmanTree(int n) {
@@ -966,9 +962,11 @@ HuffmanTree CreateHuffmanTree(int n) {
     int s2=0;
     //开始构建哈夫曼树
 
-    for (int i=n+1;i<=m;i++) {
+    for (int i=n+1;i<=m;i++)
+        {
 
         Select(H,i-1,&s1,&s2);//选出两个最小的节点
+
         H[s1].parent=i;
         H[s2].parent=i;
         H[i].weight=H[s1].weight+H[s2].weight;
@@ -976,52 +974,28 @@ HuffmanTree CreateHuffmanTree(int n) {
         H[i].rchild=s2;
     }
 
+
+
     return H;
 }
 
 
-void HuffmanTreePreOrderShow1(HuffmanTree T,int k);
+
 
 //哈夫曼数的前序遍历输出
-void HuffmanTreePreOrderShow(HuffmanTree H,int n)
+void HuffmanTreePreOrderShow(HuffmanTree H,int n)//n是根节点的下标
 {
-    HuffmanTree T=H;
-    int k=1;//根节点的序号
 
-
-    n=2*n-1;
-
-    cout<<"哈夫曼树的节点个数是"<<n<<endl;
-
-    //下面开始找根节点
-    for (int i=1;i<=n;i++) {
-        if (T[i].parent==0) {
-                cout<<"根节点是"<<i<<endl;
-            k=i;
-            break;
-        }
-
+    if (n==0) {
+        return ;
     }
-
-    //下面开始前序遍历
-   HuffmanTreePreOrderShow1(T,k);
-
-
-
-
+    cout<<H[n].weight<<" ";
+    HuffmanTreePreOrderShow(H,H[n].lchild);
+    HuffmanTreePreOrderShow(H,H[n].rchild);
 }
 
 
-void HuffmanTreePreOrderShow1(HuffmanTree T,int k)
-{
-    if (k==0) {
-        return;
-    }
-    cout<<T[k].weight<<" ";
-    HuffmanTreePreOrderShow1(T,T[k].lchild);
-    HuffmanTreePreOrderShow1(T,T[k].rchild);
 
-}
 
 
 
@@ -1030,7 +1004,7 @@ int main() {
     cout << "请输入节点的数量: ";
     cin >> n;
    HuffmanTree H=CreateHuffmanTree(n);
-  HuffmanTreePreOrderShow(H,n);
+  HuffmanTreePreOrderShow(H,2*n-1);
     delete[] H;
     return 0;
 }
