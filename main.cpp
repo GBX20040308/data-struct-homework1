@@ -1,13 +1,14 @@
 #include <iostream>
 
 using namespace std;
-#define Elemtype char
+#define Elemtype int
 #define MAXSIZE 200
 
-//-------------------------------------------顺序表----------------------------------------------------------------------
+//-------------------------------------------顺序表（零号位不用）----------------------------------------------------------
 
 // 顺序表
-typedef struct {
+//0号位空着不用
+typedef struct SSQList{
     Elemtype* data;
     int length;
 } SSQList,*SQList;
@@ -17,7 +18,7 @@ typedef struct {
 SQList InitSQLList()
 {   SQList L=new SSQList;
     L->data = new Elemtype[MAXSIZE];
-    if (!L->data)
+    if (!L->data)//内存申请失败
         exit(-1);
     else {
         L->length = 0;
@@ -27,7 +28,7 @@ SQList InitSQLList()
 
 // 顺序表的销毁
 void DestroySQList(SQList L) {
-    delete[] L->data;
+    delete[] L->data;//销毁整个数组内存
 }
 
 // 顺序表的清空
@@ -57,24 +58,25 @@ Elemtype GetElemSQList(SQList L, int i) {
         return 0;
     }
 
-    return L->data[i - 1];
+    return L->data[i];
 }
 
 // 顺序表的给值查找
 int LocateElem(SQList L, Elemtype e) {
-    for (int i = 0; i < L->length; i++) {
+    for (int i = 1; i <= L->length; i++) {
         if (L->data[i] == e) {
             return i;
         }
     }
 
-    cout << "找不到对象" << endl;
+    cout << "顺序表的给值查找：找不到对象" << endl;
+    return -1;
 }
 
 // 顺序表的插入
 void InsertSQList(SQList L, int i, Elemtype e) {
     if (i < 1 || i > L->length + 1) {
-        cout << "你越界了" << endl;
+        cout << "顺序表插入：你越界了" << endl;
         exit;
     }
     if (L->length == MAXSIZE) {
@@ -82,10 +84,10 @@ void InsertSQList(SQList L, int i, Elemtype e) {
         exit;
     }
 
-    for (int j = L->length - 1; j >= i - 1; j--) {
-        L->data[j + 1] = L->data[j];
+    for (int j = L->length ; j >= i; j--) {
+        L->data[j + 1] = L->data[j];//i到最后的元素全部后移
     }
-    L->data[i - 1] = e;
+    L->data[i] = e;
     L->length++;
 }
 
@@ -97,7 +99,7 @@ void PushSQList(SQList L, Elemtype e) {
 
 //顺序表的遍历
 void ShowSQList(SQList L) {
-    for (int i = 0; i < L->length; i++) {
+    for (int i = 1; i <= L->length; i++) {
         cout << L->data[i] << " ";
     }
     cout << endl;
@@ -115,7 +117,7 @@ void DeleteElemSQList(SQList L,int i)
 
     for(int j=i;j<= GetLengthSQList(L);j++)
     {
-        L->data[j]=L->data[j+1];
+        L->data[j]=L->data[j+1];//i到最后的元素全部前移
     }
     L->length--;
 }
@@ -128,14 +130,13 @@ typedef struct LNode{
     LNode *next;
 
 }LNode,*NodeList;
-
+//不带*的仅在new中使用，其余情况使用带*的，直接创建地址
 
 
 //链表的初始化
 NodeList InitList()
 {
-    NodeList L;
-    L=new LNode;
+    NodeList L = new LNode;//L是表头节点
     L->next= nullptr;
     return L;
 
@@ -160,10 +161,11 @@ bool IsEmptyList(NodeList L)
 int DestroyList(NodeList L)
 {
     NodeList p;
-    while(L)
+    NodeList q=L;
+    while(q)
     {
-        p=L;
-        L=L->next;
+        p=q;//用p暂存，防止删除后断开连接
+        q=q->next;
         delete p;//一个一个往后删完
     }
     return 1;
@@ -182,6 +184,7 @@ int ClearList(NodeList L)
         q=q->next;
     }
     L->next= nullptr;
+    return 0;
 }
 
 //求单链表的表长
@@ -231,6 +234,7 @@ int LocateElemList(NodeList L,Elemtype e)
         p=p->next;
     }
     cout<<"给值查找:找不到对象"<<endl;
+    return -1;
 }
 
 
@@ -555,11 +559,10 @@ int CmpString(SSString s1,SSString s2)
     {
         return -1;
     }
-    else if(sum1>sum2)
+    else
     {
         return 1;
     }
-
 }
 
 //模式匹配
@@ -755,7 +758,7 @@ void DestroyBiTree(BiTree &T) {
 }
 
 // 二叉树的创建
-int CreateBiTree(BiTree &T) {
+int CreatBiTree(BiTree &T) {
     Elemtype ch;
     cin >> ch;
     if (ch == '#') {
@@ -768,8 +771,8 @@ int CreateBiTree(BiTree &T) {
             return -1;
         }
         T->data = ch;
-        CreateBiTree(T->lchild);
-        CreateBiTree(T->rchild);
+        CreatBiTree(T->lchild);
+        CreatBiTree(T->rchild);
 
     }
     return 0;
@@ -916,8 +919,8 @@ typedef struct {
 //选出最小的两个节点
 void Select(HuffmanTree H, int k, int *s1, int *s2)
 {
-    int min1 = 100000000000;
-    int min2 = 100000000000;
+    int min1 = 100000000;
+    int min2 = 100000000;
     // 先遍历找到第一个最小权值的节点
     for (int i = 1; i <= k; i++)
     {
@@ -940,7 +943,7 @@ void Select(HuffmanTree H, int k, int *s1, int *s2)
 }
 
 //哈夫曼树的创建
-HuffmanTree CreateHuffmanTree(int n) {
+HuffmanTree CreatHuffmanTree(int n) {
     if (n<=1) {
         return 0;
     }
@@ -997,14 +1000,235 @@ void HuffmanTreePreOrderShow(HuffmanTree H,int n)//n是根节点的下标
 
 
 
+//-----------------------------------------------哈夫曼编码-------------------------------------------------------------
+//不想
+
+//-------------------------------------------------搜索-----------------------------------------------------------------
+//顺序搜索
+//循环遍历即可，懒得写
 
 
+//二分查找，要求数据有序,返回所在位置
+int Search_Bin(SQList L,Elemtype e) {
+    int low=1;
+    int high=GetLengthSQList(L);
+    while (low<=high) {
+        int mid =(low+high)/2;
+        if (L->data[mid]==e) {
+            return mid;
+        }
+        else if (e<L->data[mid]) {
+            high=mid-1;
+        }
+        else {
+            low=mid+1;
+        }
+
+    }
+    return 0;
+}
+
+
+//分块查找
+//没意义，不想写
+
+
+//二叉排序树查找
+
+//二叉排序树的定义
+typedef struct BSTNode{
+    Elemtype data;
+    struct BSTNode *lchild,*rchild;
+}BSTNode,*BSTree;
+
+// 二叉排序树的查找（返回元素所在节点指针）
+BSTree SearchBST(BSTree T, Elemtype e) {
+    if (!T || e == T->data) {
+        return T;
+    }
+    else if (e < T->data) {
+        return SearchBST(T->lchild, e);
+    }
+    else {
+        return SearchBST(T->rchild, e);
+    }
+}
+
+// 二叉排序树的插入
+int InsertBST(BSTree& T, Elemtype e) {
+    if (T == nullptr) {
+        T = new BSTNode;
+        T->data = e;
+        T->lchild = T->rchild = nullptr;
+        return 1;  // 插入成功返回1
+    }
+    else {
+        BSTree p = SearchBST(T, e);
+        if (p == nullptr) {
+            if (e < T->data) {
+                return InsertBST(T->lchild, e);
+            }
+            else {
+                return InsertBST(T->rchild, e);
+            }
+        }
+        else {
+            return 0;  // 元素已存在，插入失败返回0
+        }
+    }
+}
+
+
+//----------------------------------------------------排序--------------------------------------------------------------
+//直接插入排序
+void InsertSort(SQList L) {
+    int i,j;
+    for (i=2;i<=L->length;i++) {
+       if (L->data[i]<L->data[i-1]) {
+           L->data[0]=L->data[i];
+           for (j=i-1;L->data[0]<L->data[j];--j) {
+               L->data[j+1]=L->data[j];
+           }
+       }
+        L->data[j+1]=L->data[0];
+    }
+}
+
+
+
+//折半插入排序
+void BInsertSort(SQList L) {
+    for (int i=2;i<=L->length;++i) {
+        int low=1,high=i-1;
+        while (low<=high) {
+            int mid=(low+high)/2;
+            if (L->data[0]<L->data[mid]) {
+                high =mid-1;
+            }
+            else {
+                low=mid+1;
+            }
+        }
+        for (int j=i-1;j>=high+1;--j) {
+            L->data[high+1]=L->data[0];
+        }
+    }
+}
+
+
+//希尔排序
+void ShellInsert(SQList L,int dk);
+void ShellSort(SQList L,int dlta[],int t) {
+    for (int k=0;k<t;k++) {
+        ShellInsert(L,dlta[k]);
+    }
+
+}
+
+void ShellInsert(SQList L,int dk) {
+    for (int i=dk+1;i<=L->length;i++) {
+        if (L->data[i]<L->data[i-dk] ){
+            L->data[0]=L->data[i];
+            for (int j=i-dk;j>0&&(L->data[0]<L->data[j]);j-=dk) {
+                L->data[j+dk]=L->data[j];
+                L->data[j+dk]=L->data[0];
+            }
+        }
+    }
+}
+
+
+//冒泡排序
+void BubbleSort(SQList L) {
+    for (int i=1;i<L->length;i++) {
+        for (int j=1;j<=L->length-i;j++) {
+            if (L->data[j]>L->data[j+1]) {
+                swap(L->data[j],L->data[j+1]);
+            }
+        }
+    }
+}
+
+
+//简单选择排序
+void SelectSort(SQList L) {
+    for (int i=1;i<L->length;i++) {
+        for (int j=i+1;j<=L->length;j++) {
+            if (L->data[i]>L->data[j]) {
+                swap(L->data[i],L->data[j]);
+            }
+        }
+    }
+}
+
+
+//快速排序
+int Partition(SQList L,int low,int high);
+void QuickSort(SQList L,int low,int high) {
+    if (low<high) {
+        int pivot=Partition(L,low,high);
+        QuickSort(L,low,pivot-1);
+        QuickSort(L,pivot+1,high);
+
+    }
+
+}
+int Partition(SQList L,int low,int high) {
+    L->data[0]=L->data[low];
+    int povit=L->data[low];
+    while (low<high) {
+        while (low<high&&L->data[high]>=povit) {
+            high--;
+            L->data[low]=L->data[high];
+        }
+        while (low<high&&L->data[low]<=povit) {
+            low++;
+            L->data[high]=L->data[low];
+
+        }
+
+        L->data[low]=L->data[0];
+        return low;
+    }
+
+}
+
+//堆排序
+
+//----------------------------------------------------测试主函数----------------------------------------------------------
 int main() {
-    int n;
-    cout << "请输入节点的数量: ";
-    cin >> n;
-   HuffmanTree H=CreateHuffmanTree(n);
-  HuffmanTreePreOrderShow(H,2*n-1);
-    delete[] H;
+    SQList L =InitSQLList();
+    PushSQList(L,1);
+    PushSQList(L,3);
+    PushSQList(L,6);
+    PushSQList(L,9);
+    PushSQList(L,2);
+    PushSQList(L,4);
+    PushSQList(L,7);
+    PushSQList(L,5);
+    PushSQList(L,8);
+    PushSQList(L,1);
+
+
+
+    cout<<"排序前："<<endl;
+    ShowSQList(L);
+
+    cout<<"冒泡排序后："<<endl;
+    BubbleSort(L);
+    ShowSQList(L);
+
+    cout<<"选择排序后："<<endl;
+    SelectSort(L);
+    ShowSQList(L);
+
+    cout<<"快速排序后："<<endl;
+    QuickSort(L,1,GetLengthSQList(L));
+    ShowSQList(L);
+
+
+
+
+
     return 0;
 }
